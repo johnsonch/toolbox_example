@@ -7,5 +7,15 @@ root_dir = File.dirname(__FILE__)
 
 config = "#{root_dir}/configs/ssh_config"
 backup_command = 'mysqldump '
-ssh_command = SSH.command_builder(config, 'db')
-Command.run(ssh_command)
+
+backup = SSH.command_builder(config, 'db', 'mysqldump -u root -proot freedom35 > ~/prod.sql')
+Command.run(backup)
+
+gzip = SSH.command_builder(config, 'db', 'gzip prod.sql')
+Command.run(gzip)
+
+scp = SSH.scp(config, 'db', 'prod.sql.gz')
+Command.run(scp)
+
+rm = SSH.command_builder(config, 'db', 'rm ~/prod.sql.gz')
+Command.run(rm)
