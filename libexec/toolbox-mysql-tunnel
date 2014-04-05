@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# Usage: toolbox mysql-tunnel
+# Summary: creates a tunnel to the prod mysql server 
+
+require_relative './shared-lib'
+root_dir = File.dirname(__FILE__)
+
+config = "#{root_dir}/configs/ssh_config"
+ssh_command = SSH.command_builder(config, 'prod-mysql')
+Command.run(ssh_command)

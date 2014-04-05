@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+COMMAND="$1"
+if [ -z "$COMMAND" ]; then
+  echo "usage: toolbox completions COMMAND [arg1 arg2...]" >&2
+  exit 1
+fi
+
+COMMAND_PATH="$(command -v "toolbox-$COMMAND")"
+if grep -i "^# provide toolbox completions" "$COMMAND_PATH" >/dev/null; then
+  shift
+  exec "$COMMAND_PATH" --complete "$@"
+fi

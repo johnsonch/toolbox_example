@@ -1,0 +1,26 @@
+Host web 
+  User vagrant
+  Port 22
+  IdentityFile ~/.ssh/id_rsa
+  Hostname 33.33.13.37 
+
+Host db
+  User vagrant
+  Port 22
+  IdentityFile ~/.ssh/id_rsa
+  Hostname 33.33.13.38 
+
+Host mysql 
+  User vagrant
+  Port 22
+  IdentityFile ~/.ssh/id_rsa
+  Hostname 33.33.13.38
+  LocalForward 3307 127.0.0.1:3306
+
+Host prod-mysql
+  User cjohnson
+  IdentityFile ~/.ssh/id_rsa
+  Hostname demoproddb
+  Port 3723
+  LocalForward 3307 127.0.0.1:3306
+

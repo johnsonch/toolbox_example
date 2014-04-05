@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# Usage: toolbox df 
+# Summary: runs the disk free utility on each server 
+
+require_relative './shared-lib'
+root_dir = File.dirname(__FILE__)
+
+servers = ['web','db']
+servers.each do |server|
+
+puts "Checking diskspace on #{server}"
+ config = "#{root_dir}/configs/ssh_config"
+ ssh_command = SSH.command_builder(config, server, 'df')
+ Command.run(ssh_command)
+end

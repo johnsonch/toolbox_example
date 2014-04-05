@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+
+echo $1
+path=$0
+SCRIPT_ROOT="${path%/*}"
+ssh -F $SCRIPT_ROOT/configs/ssh_config $1 $2

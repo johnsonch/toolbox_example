@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# Usage: toolbox backup-db 
+# Summary: backups the  
+
+require_relative './shared-lib'
+root_dir = File.dirname(__FILE__)
+
+config = "#{root_dir}/configs/ssh_config"
+backup_command = 'mysqldump '
+ssh_command = SSH.command_builder(config, 'db')
+Command.run(ssh_command)
