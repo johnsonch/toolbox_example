@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+# Usage: toolbox backup-db 
+# Summary: backups the  
+
+require_relative './shared-lib'
+root_dir = File.dirname(__FILE__)
+config = "#{root_dir}/configs/ssh_config"
+project_dir = File.join(root_dir, '../../')
+
+tar = "/tmp/#{Time.now.to_s.gsub(' ','-').gsub(':','-')}.tar.gz"
+gunzip = "cd #{project_dir}; tar -czvf #{tar} toolbox"
+puts gunzip
+Command.run(gunzip)
+scp = SSH.scp_to(config, 'web', "#{tar}")
+Command.run(scp)
+remove_file = "rm #{tar}"
+Command.run(remove_file)

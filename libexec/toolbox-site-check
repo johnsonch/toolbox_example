@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# Usage: toolbox site-check <site url> 
+# Summary: it checks the site 
+
+require_relative './shared-lib'
+root_dir = File.dirname(__FILE__)
+
+check_command = "curl -I -s #{ARGV[0]}"
+site_check = `#{check_command}` 
+if site_check.match(/Could not resolve host/)
+  puts "HOLY SMOKES IT'S DOWN CALL BATMAN"
+else
+  puts "It's up"
+end

@@ -14,7 +14,7 @@ Command.run(backup)
 gzip = SSH.command_builder(config, 'db', 'gzip prod.sql')
 Command.run(gzip)
 
-scp = SSH.scp(config, 'db', 'prod.sql.gz')
+scp = SSH.scp_from(config, 'db', 'prod.sql.gz')
 Command.run(scp)
 
 rm = SSH.command_builder(config, 'db', 'rm ~/prod.sql.gz')
